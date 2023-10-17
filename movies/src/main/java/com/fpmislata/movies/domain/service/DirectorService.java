@@ -9,8 +9,7 @@ import java.util.List;
 public interface DirectorService {
     public List<Director> getAllDirector();
     public  Director findDirectorById(int id);
-
     public int insertDirector(Director director);
-
     public void update(int id, Director director);
+    public void delete(int id);
 }

@@ -8,6 +8,7 @@ import com.fpmislata.movies.exception.SQLStatmentException;
 import com.fpmislata.movies.persistence.DirectorRepository;
 import org.springframework.stereotype.Repository;
 
+import java.net.ConnectException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -33,7 +34,23 @@ public class DirectorRepositoryImpl implements DirectorRepository {
 
     @Override
     public void update(Director director) {
+        final String SQL = "UPDATE director set name=?, birthYear=?, deathYear=? WHERE id=?";
+        List<Object> params = new ArrayList<>();
+        params.add(director.getName());
+        params.add(director.getBirthYear());
+        params.add(director.getDeathYear());
+        params.add(director.getId());
+        Connection connection =DBUtil.getConnection();
+        DBUtil.update(connection,SQL,params);
+        DBUtil.closeConnection(connection);
+    }
 
+    @Override
+    public void delete(int id) {
+        final String SQL = "DELETE from directors WHERE id=?";
+        Connection connection = DBUtil.getConnection();
+        DBUtil.delete(connection,SQL, List.of(id));
+        DBUtil.closeConnection(connection);
     }
 
     @Override

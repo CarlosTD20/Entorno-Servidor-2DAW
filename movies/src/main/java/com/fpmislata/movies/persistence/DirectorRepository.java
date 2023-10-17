@@ -11,4 +11,5 @@ public interface DirectorRepository {
     public int insertDirector(Director director);
 
     public void update(Director director);
+    public void delete(int id);
 }
