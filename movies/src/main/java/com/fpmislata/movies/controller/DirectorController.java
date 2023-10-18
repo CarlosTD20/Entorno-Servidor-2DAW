@@ -42,7 +42,7 @@ public class DirectorController {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") int id){
         this.directorService.delete(id);
     }
