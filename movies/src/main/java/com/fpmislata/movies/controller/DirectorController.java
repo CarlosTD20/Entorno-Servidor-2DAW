@@ -15,7 +15,7 @@ public class DirectorController {
     @Autowired
     private DirectorService directorService;
 
-    /*@ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping("")
     public List<Director> getAllDirectos(){
         try {
@@ -25,7 +25,7 @@ public class DirectorController {
             System.out.println(e.getMessage());
             throw e;
         }
-    }*/
+    }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("")
@@ -38,7 +38,8 @@ public class DirectorController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("/{id}")
     public void update(@PathVariable("id") int id, @RequestBody Director director){
-        this.directorService.update(id, director);
+        director.setId(id);
+        this.directorService.update(director);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

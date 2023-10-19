@@ -34,7 +34,8 @@ public class DirectorRepositoryImpl implements DirectorRepository {
 
     @Override
     public void update(Director director) {
-        final String SQL = "UPDATE director set name=?, birthYear=?, deathYear=? WHERE id=?";
+        final String SQL = "UPDATE directors set name=?, birthYear=?, deathYear=? WHERE id=?";
+
         List<Object> params = new ArrayList<>();
         params.add(director.getName());
         params.add(director.getBirthYear());
