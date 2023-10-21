@@ -4,10 +4,7 @@ import com.fpmislata.movies.domain.entity.Actor;
 import com.fpmislata.movies.domain.service.ActorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,18 +27,24 @@ public class ActorController {
         }
     }
 
-    Actor actor1 = new Actor("Robert Downey Jr", 1968, null);
-    Actor actor2 = new Actor("Chris Evans", 1981,null);
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("")
+    public Actor insertActor(@RequestBody Actor actor){
+        int id = actorService.insertActor(actor);
+        actor.setId(id);
+        return actor;
+    }
 
-    @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/insert")
-    public void insertActor(){
-        try {
-            this.actorService.insertActor(this.actor1);
-            this.actorService.insertActor(this.actor2);
-        } catch (Exception e){
-            System.out.println(e.getMessage());
-            throw e;
-        }
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PutMapping("/{id}")
+    public void update(@PathVariable("id") int id,@RequestBody Actor actor){
+        actor.setId(id);
+        this.actorService.update(actor);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable("id") int id){
+        this.actorService.delete(id);
     }
 }

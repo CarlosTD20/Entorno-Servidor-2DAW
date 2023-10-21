@@ -32,7 +32,7 @@ public class DirectorServiceImpl implements DirectorService {
     }
 
     @Override
-    public void update( Director director) {
+    public void update(Director director) {
         Director existingDirector = directorRepository.findDirectorById(director.getId());
         if (existingDirector == null){
             throw  new ResourceNotFoundException("Director not found with id: " + director.getId());

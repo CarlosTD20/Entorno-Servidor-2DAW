@@ -19,7 +19,7 @@ public class DirectorController {
     @GetMapping("")
     public List<Director> getAllDirectos(){
         try {
-            System.out.println(this.directorService.getAllDirector());
+            //System.out.println(this.directorService.getAllDirector());
             return this.directorService.getAllDirector();
         } catch (Exception e){
             System.out.println(e.getMessage());

@@ -19,23 +19,46 @@ import java.util.Objects;
 public class ActorRepositoryImpl implements ActorRepository {
 
     @Override
-    public void insertActor(Actor actor) {
+    public int insertActor(Actor actor) {
         final String SQL = "insert into actors (name, birthYear, deathYear) values (?,?,?)";
         List<Object> params = new ArrayList<>();
         params.add(actor.getName());
         params.add(actor.getBirthYear());
         params.add(actor.getDeathYear());
         try (Connection connection = DBUtil.getConnection()){
-            DBUtil.insert(connection,SQL,params);
+            int id =DBUtil.insert(connection,SQL,params);
             DBUtil.closeConnection(connection);
+            return  id;
         } catch (DBConnectionException e){
             throw e;
         } catch (SQLException e){
             throw new SQLStatmentException("SQL: " + SQL);
         } catch (Exception e){
-            System.out.println("Exception: " + e);
+            throw e;
         }
     }
+
+    @Override
+    public void update(Actor actor) {
+        final String SQL="UPDATE actors set name=?, birthYear=?, deathYear=? WHERE id=?";
+        List<Object> params = new ArrayList<>();
+        params.add(actor.getName());
+        params.add(actor.getBirthYear());
+        params.add(actor.getDeathYear());
+        params.add(actor.getId());
+        Connection connection= DBUtil.getConnection();
+        DBUtil.update(connection,SQL,params);
+        DBUtil.closeConnection(connection);
+    }
+
+    @Override
+    public void delete(int id) {
+        final String SQL="DELETE from actors where id=?";
+        Connection connection = DBUtil.getConnection();
+        DBUtil.delete(connection,SQL,List.of(id));
+        DBUtil.closeConnection(connection);
+    }
+
     @Override
     public List<Actor> getAllActors() {
         List<Actor> actor = new ArrayList<>();
