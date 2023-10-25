@@ -27,6 +27,18 @@ public class DirectorController {
         }
     }
 
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/{id}")
+    public Director getDirectorByID(@PathVariable int id){
+        try {
+            //System.out.println(this.directorService.getAllDirector());
+            return this.directorService.findDirectorById(id);
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            throw e;
+        }
+    }
+
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("")
     public Director insertDirector(@RequestBody Director director){
