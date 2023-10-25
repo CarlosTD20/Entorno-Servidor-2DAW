@@ -76,28 +76,6 @@ public class MovieRepositoryImpl implements MovieRepository {
         }
     }
 
-    @Override
-    public Movie getMovieByTitle(String title) {
-        final String SQL="select * from moviees where title = ?";
-        try (Connection connection = DBUtil.getConnection()){
-            ResultSet resultSet=DBUtil.select(connection,SQL, List.of(title));
-            DBUtil.closeConnection(connection);
-            if (resultSet.next()){
-                return new Movie(
-                        resultSet.getInt("id"),
-                        resultSet.getString("title"),
-                        resultSet.getInt("year"),
-                        resultSet.getInt("runtime")
-                );
-            } else {
-                throw new ResourceNotFoundException("Title: " + title);
-            }
-        } catch (DBConnectionException e){
-            throw  e;
-        } catch (SQLException e){
-            throw new SQLStatmentException("SQL: " + SQL);
-        }
-    }
 
     @Override
     public int getTotalNumberOfRecords() {

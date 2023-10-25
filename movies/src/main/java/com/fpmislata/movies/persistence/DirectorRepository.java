@@ -7,9 +7,7 @@ import java.util.List;
 public interface DirectorRepository {
     public List<Director> getAllDirector();
     public Director findDirectorById(int id);
-
     public int insertDirector(Director director);
-
     public void update(Director director);
     public void delete(int id);
 }

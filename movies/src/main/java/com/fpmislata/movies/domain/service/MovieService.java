@@ -10,7 +10,5 @@ public interface MovieService {
 
     public List<Movie> getAllMovies(Optional<Integer> page, Optional<Integer> pageSize);
     public Movie findById(int id);
-    public  Movie findByTitle(String title);
-
     int getTotalNumberOfRecords();
 }

@@ -32,11 +32,6 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public Movie findByTitle(String title) {
-        return this.movieRepository.getMovieByTitle(title);
-    }
-
-    @Override
     public int getTotalNumberOfRecords() {
         return this.movieRepository.getTotalNumberOfRecords();
     }
