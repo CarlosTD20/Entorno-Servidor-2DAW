@@ -88,7 +88,5 @@ public class MovieRepositoryImpl implements MovieRepository {
         } catch (SQLException e){
             throw new SQLStatmentException("SQL: " + SQL);
         }
-
-
     }
 }

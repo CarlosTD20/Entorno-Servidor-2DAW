@@ -1,7 +1,10 @@
 package com.fpmislata.movies.controller;
 
+import com.fpmislata.movies.controller.model.director.DirectorDetailWEB;
+import com.fpmislata.movies.controller.model.director.DirectorListWEB;
 import com.fpmislata.movies.domain.entity.Director;
 import com.fpmislata.movies.domain.service.DirectorService;
+import com.fpmislata.movies.mapper.DirectorMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -17,26 +20,18 @@ public class DirectorController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("")
-    public List<Director> getAllDirectos(){
-        try {
-            //System.out.println(this.directorService.getAllDirector());
-            return this.directorService.getAllDirector();
-        } catch (Exception e){
-            System.out.println(e.getMessage());
-            throw e;
-        }
+    public List<DirectorListWEB> getAllDirectos(){
+        List<Director> directors = directorService.getAllDirector();
+        List<DirectorListWEB> directorWEB = directors.stream()
+                .map(director -> DirectorMapper.mapper.toDirectorListWEB(director))
+                .toList();
+        return directorWEB;
     }
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{id}")
-    public Director getDirectorByID(@PathVariable int id){
-        try {
-            //System.out.println(this.directorService.getAllDirector());
-            return this.directorService.findDirectorById(id);
-        } catch (Exception e){
-            System.out.println(e.getMessage());
-            throw e;
-        }
+    public DirectorDetailWEB getDirectorByID(@PathVariable int id){
+       return DirectorMapper.mapper.toDirectorDetailWEB(directorService.findDirectorById(id));
     }
 
     @ResponseStatus(HttpStatus.CREATED)

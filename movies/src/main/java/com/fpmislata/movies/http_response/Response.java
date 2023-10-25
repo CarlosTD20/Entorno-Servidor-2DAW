@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,6 +27,7 @@ import java.util.Optional;
         "previous",
         "data"
 })
+
 public class Response {
 
     private Object data;
@@ -43,6 +45,8 @@ public class Response {
     @JsonIgnore
     @Value("${LIMIT}")
     private int LIMIT ;
+
+
 
     public Response(Object data, Integer totalRecords, Optional<Integer> page,Optional<Integer> pageSize) {
         this.data = data;
