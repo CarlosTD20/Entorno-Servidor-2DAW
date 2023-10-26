@@ -8,7 +8,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class DirectorCreateWEB {
+@AllArgsConstructor
+public class DirectorUpdateWEB {
+    private int id;
     private String name;
     private int birthYear;
     private Integer deathYear;

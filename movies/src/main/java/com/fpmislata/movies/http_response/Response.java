@@ -46,7 +46,11 @@ public class Response {
     @Value("${LIMIT}")
     private int LIMIT ;
 
+    //Crear cconstructor con unicamente el campo data.
 
+    public Response (Object data){
+        this.data = data;
+    }
 
     public Response(Object data, Integer totalRecords, Optional<Integer> page,Optional<Integer> pageSize) {
         this.data = data;
