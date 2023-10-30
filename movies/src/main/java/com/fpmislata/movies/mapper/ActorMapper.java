@@ -6,8 +6,11 @@ import com.fpmislata.movies.controller.model.actor.ActorListWEB;
 import com.fpmislata.movies.controller.model.actor.ActorUpdateWEB;
 import com.fpmislata.movies.domain.entity.Actor;
 
+import com.fpmislata.movies.persistence.model.ActorEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
+
+import java.sql.ResultSet;
 
 @Mapper(componentModel = "spring")
 public interface ActorMapper {
@@ -18,4 +21,6 @@ public interface ActorMapper {
 
     ActorListWEB toActorListWEB(Actor actor);
     ActorDetailWEB toActorDetailWEB(Actor actor);
+
+    ActorEntity toActorEntity(ResultSet resultSet);
 }

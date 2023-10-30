@@ -1,11 +1,9 @@
 package com.fpmislata.movies.domain.service.impl;
 
 import com.fpmislata.movies.domain.entity.Actor;
-import com.fpmislata.movies.domain.entity.Director;
 import com.fpmislata.movies.domain.service.ActorService;
 import com.fpmislata.movies.exception.ResourceNotFoundException;
-import com.fpmislata.movies.persistence.ActorRepository;
-import com.fpmislata.movies.persistence.impl.ActorRepositoryImpl;
+import com.fpmislata.movies.domain.repository.ActorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

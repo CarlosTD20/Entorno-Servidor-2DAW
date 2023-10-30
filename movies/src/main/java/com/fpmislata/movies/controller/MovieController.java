@@ -35,7 +35,7 @@ public class MovieController {
         int totalRecords = movieService.getTotalNumberOfRecords();
 
         List<Movie> movies =movieService.getAllMovies(page,pageSize);
-        List<MovieListWEB> movieWEB = movies.stream()
+        List<MovieListWEB> movieWEB = movies.stream()//stream() separa en onjestos, creando un flujo de elementos de tipo movies.
                 .map(movie -> MovieMapper.mapper.toMovieListWEB(movie))
                 .toList();
 
