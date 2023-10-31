@@ -6,6 +6,10 @@ import com.fpmislata.movies.exception.DBConnectionException;
 import com.fpmislata.movies.exception.ResourceNotFoundException;
 import com.fpmislata.movies.exception.SQLStatmentException;
 import com.fpmislata.movies.domain.repository.ActorRepository;
+import com.fpmislata.movies.mapper.ActorMapper;
+import com.fpmislata.movies.persistence.dao.ActorsDAO;
+import com.fpmislata.movies.persistence.model.ActorEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
@@ -13,124 +17,73 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class ActorRepositoryImpl implements ActorRepository {
 
+    @Autowired
+    ActorsDAO actorsDAO;
+
     @Override
     public List<Actor> getAllActors() {
-        List<Actor> actor = new ArrayList<>();
-        final String SQL = "select * from actors";
         try (Connection connection = DBUtil.getConnection(true)){
-            ResultSet resultSet = DBUtil.select(connection,SQL,null);
-            while (resultSet.next()){
-                actor.add(
-                        new Actor(
-                                resultSet.getInt("id"),
-                                resultSet.getString("name"),
-                                resultSet.getInt("birthYear"),
-                                resultSet.getInt("deathYear")
-                        )
-                );
-            }
-            DBUtil.closeConnection(connection);
-            return actor;
-        } catch (DBConnectionException e){
-            throw e;
+            List<ActorEntity> actorEntities = actorsDAO.getAllActors(connection);
+            List<Actor> actors = actorEntities.stream()
+                    .map(actorEntity -> ActorMapper.mapper.toActor(actorEntity))
+                    .toList();
+            return actors;
         } catch (SQLException e){
-            throw new SQLStatmentException("SQL: " + SQL);
+            throw new RuntimeException(e.getMessage());
         }
     }
 
     @Override
     public Actor findActorById(int id) {
-        final String SQL = "select * from actors where id=?";
         try (Connection connection = DBUtil.getConnection(true)){
-            ResultSet resultSet=DBUtil.select(connection,SQL,List.of(id));
-            DBUtil.closeConnection(connection);
-            if (resultSet.next()){
-                return new Actor(
-                        resultSet.getInt("id"),
-                        resultSet.getString("name"),
-                        resultSet.getInt("birthYear"),
-                        (resultSet.getObject("deathYear") != null)? resultSet.getInt("deathYear") : null
-                );
-            } else {
-                throw new ResourceNotFoundException("ID: " + id);
-            }
-        } catch (DBConnectionException e){
-            throw e;
+            Optional<ActorEntity> actorEntity = actorsDAO.findActorById(connection,id);
+            return ActorMapper.mapper.toActor(actorEntity.get());
         } catch (SQLException e){
-            throw new SQLStatmentException("SQL: " + SQL);
+            throw new RuntimeException(e.getMessage());
         }
     }
 
     public List<Actor> findActorsByMovieID(int id){
-        List<Actor> actor = new ArrayList<>();
-        final String SQL ="""
-                    SELECT a.* FROM actors a
-                    INNER JOIN actors_movies am ON am.actor_id = a.id
-                    INNER JOIN movies m ON m.id = am.movie_id AND m.id = ?
-                """;
         try (Connection connection = DBUtil.getConnection(true)){
-            ResultSet resultSet = DBUtil.select(connection,SQL,List.of(id));
-            while (resultSet.next()){
-                actor.add(
-                        new Actor(
-                                resultSet.getInt("id"),
-                                resultSet.getString("name"),
-                                resultSet.getInt("birthYear"),
-                                (resultSet.getObject("deathYear") != null)? resultSet.getInt("deathYear") : null
-                        )
-                );
-            }
-            DBUtil.closeConnection(connection);
-            return actor;
-        } catch (DBConnectionException e){
-            throw e;
+            List<ActorEntity> actorEntities = actorsDAO.findActorsByMovieID(connection,id);
+            List<Actor> actors = actorEntities.stream()
+                    .map(actorEntity -> ActorMapper.mapper.toActor(actorEntity))
+                    .toList();
+            return actors;
         } catch (SQLException e){
-            throw new SQLStatmentException("SQL: " + SQL);
+            throw new RuntimeException(e.getMessage());
         }
     }
 
     @Override
     public int insertActor(Actor actor) {
-        final String SQL = "insert into actors (name, birthYear, deathYear) values (?,?,?)";
-        List<Object> params = new ArrayList<>();
-        params.add(actor.getName());
-        params.add(actor.getBirthYear());
-        params.add(actor.getDeathYear());
         try (Connection connection = DBUtil.getConnection(true)){
-            int id =DBUtil.insert(connection,SQL,params);
-            DBUtil.closeConnection(connection);
-            return  id;
-        } catch (DBConnectionException e){
-            throw e;
+            return actorsDAO.insertActor(connection,ActorMapper.mapper.toActorEntity(actor));
         } catch (SQLException e){
-            throw new SQLStatmentException("SQL: " + SQL);
-        } catch (Exception e){
-            throw e;
+            throw new RuntimeException(e.getMessage());
         }
     }
 
     @Override
     public void update(Actor actor) {
-        final String SQL="UPDATE actors set name=?, birthYear=?, deathYear=? WHERE id=?";
-        List<Object> params = new ArrayList<>();
-        params.add(actor.getName());
-        params.add(actor.getBirthYear());
-        params.add(actor.getDeathYear());
-        params.add(actor.getId());
-        Connection connection= DBUtil.getConnection(true);
-        DBUtil.update(connection,SQL,params);
-        DBUtil.closeConnection(connection);
+        try (Connection connection = DBUtil.getConnection(true)){
+            actorsDAO.upadte(connection,ActorMapper.mapper.toActorEntity(actor));
+        }catch (SQLException e){
+            throw new RuntimeException(e.getMessage());
+        }
     }
 
     @Override
     public void delete(int id) {
-        final String SQL="DELETE from actors where id=?";
-        Connection connection = DBUtil.getConnection(true);
-        DBUtil.delete(connection,SQL,List.of(id));
-        DBUtil.closeConnection(connection);
+        try (Connection connection = DBUtil.getConnection(true)){
+            actorsDAO.delete(connection,id);
+        } catch (SQLException e){
+            throw new RuntimeException(e.getMessage());
+        }
     }
 }

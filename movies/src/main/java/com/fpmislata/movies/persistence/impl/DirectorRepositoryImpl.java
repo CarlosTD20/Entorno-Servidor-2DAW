@@ -34,7 +34,7 @@ public class DirectorRepositoryImpl implements DirectorRepository {
                     .toList();
             return directors;
         } catch (SQLException e){
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage());
         }
     }
 
@@ -44,7 +44,7 @@ public class DirectorRepositoryImpl implements DirectorRepository {
             Optional<DirectorEntity> directorEntity = directorsDAO.findDirectorById(connection,id);
             return DirectorMapper.mapper.toDirector(directorEntity.get());
         } catch (SQLException e){
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage());
         }
     }
 
@@ -54,7 +54,7 @@ public class DirectorRepositoryImpl implements DirectorRepository {
             Optional<DirectorEntity> directorEntity = directorsDAO.findDirectorByMovieId(connection,id);
             return DirectorMapper.mapper.toDirector(directorEntity.get());
         } catch (SQLException e){
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage());
         }
     }
 
@@ -63,7 +63,7 @@ public class DirectorRepositoryImpl implements DirectorRepository {
         try (Connection connection = DBUtil.getConnection(true)){
             return directorsDAO.insertDirector(connection,DirectorMapper.mapper.toDirectorEntity(director));
         } catch (SQLException e){
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage());
         }
     }
 
@@ -72,7 +72,7 @@ public class DirectorRepositoryImpl implements DirectorRepository {
         try (Connection connection = DBUtil.getConnection(true)){
             directorsDAO.update(connection, DirectorMapper.mapper.toDirectorEntity(director));
         } catch (SQLException e){
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage());
         }
     }
 
@@ -81,7 +81,7 @@ public class DirectorRepositoryImpl implements DirectorRepository {
         try (Connection connection = DBUtil.getConnection(true)){
             directorsDAO.delete(connection,id);
         } catch (SQLException e){
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage());
         }
     }
 }

@@ -17,7 +17,7 @@ import java.util.Optional;
 public class DirectorsDAO {
 
     public List<DirectorEntity> getAllDirectors(Connection connection){
-        String SQL= "select * from directors";
+        final String SQL= "select * from directors";
         List<DirectorEntity> directorEntities = new ArrayList<>();
         try {
             ResultSet resultSet = DBUtil.select(connection,SQL,null);
@@ -67,12 +67,12 @@ public class DirectorsDAO {
 
     public void update(Connection connection, DirectorEntity directorEntity){
         final String SQL = "UPDATE directors set name=?, birthYear=?, deathYear=? WHERE id=?";
-
         List<Object> params = new ArrayList<>();
-        params.add(directorEntity.getId());
+
         params.add(directorEntity.getName());
         params.add(directorEntity.getBirthYear());
         params.add(directorEntity.getDeathYear());
+        params.add(directorEntity.getId());
         DBUtil.update(connection,SQL,params);
         DBUtil.closeConnection(connection);
     }
