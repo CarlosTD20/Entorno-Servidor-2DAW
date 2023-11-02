@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DirectorServiceImpl implements DirectorService {
@@ -22,7 +23,8 @@ public class DirectorServiceImpl implements DirectorService {
 
     @Override
     public Director findDirectorById(int id) {
-        return this.directorRepository.findDirectorById(id);
+        Director director = directorRepository.findDirectorById(id).orElseThrow(()-> new ResourceNotFoundException("Director not found with id: " + id));
+        return director;
     }
 
     @Override
@@ -32,19 +34,13 @@ public class DirectorServiceImpl implements DirectorService {
 
     @Override
     public void update(Director director) {
-        Director existingDirector = directorRepository.findDirectorById(director.getId());
-        if (existingDirector == null){
-            throw  new ResourceNotFoundException("Director not found with id: " + director.getId());
-        }
+        directorRepository.findDirectorById(director.getId()).orElseThrow(()-> new ResourceNotFoundException("Director not found with id: " + director.getId()));
         directorRepository.update(director);
     }
 
     @Override
     public void delete(int id) {
-        Director existingDirector = directorRepository.findDirectorById(id);
-        if (existingDirector == null){
-            throw  new ResourceNotFoundException("Director not found with id: " + id);
-        }
+        directorRepository.findDirectorById(id).orElseThrow(()-> new ResourceNotFoundException("Director not found with id: " + id));
         directorRepository.delete(id);
     }
 }

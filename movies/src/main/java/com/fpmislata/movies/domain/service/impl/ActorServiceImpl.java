@@ -22,7 +22,7 @@ public class ActorServiceImpl implements ActorService {
 
     @Override
     public Actor findActorById(int id) {
-        return this.actorRepository.findActorById(id);
+        return this.actorRepository.findActorById(id).orElseThrow(()-> new ResourceNotFoundException("Director not found with id: " + id));
     }
 
     @Override
@@ -32,19 +32,11 @@ public class ActorServiceImpl implements ActorService {
 
     @Override
     public void update(Actor actor) {
-        Actor existingActor = actorRepository.findActorById(actor.getId());
-        if (existingActor == null){
-            throw  new ResourceNotFoundException("Actor not found with id: " + actor.getId());
-        }
-        actorRepository.update(actor);
+        actorRepository.findActorById(actor.getId()).orElseThrow(()-> new ResourceNotFoundException("Director not found with id: " + actor.getId()));
     }
 
     @Override
     public void delete(int id) {
-        Actor existingActor = actorRepository.findActorById(id);
-        if (existingActor == null){
-            throw  new ResourceNotFoundException("Actor not found with id: " + id);
-        }
-        actorRepository.delete(id);
+        actorRepository.findActorById(id).orElseThrow(()-> new ResourceNotFoundException("Director not found with id: " + id));;
     }
 }

@@ -39,10 +39,10 @@ public class ActorRepositoryImpl implements ActorRepository {
     }
 
     @Override
-    public Actor findActorById(int id) {
+    public Optional<Actor> findActorById(int id) {
         try (Connection connection = DBUtil.getConnection(true)){
             Optional<ActorEntity> actorEntity = actorsDAO.findActorById(connection,id);
-            return ActorMapper.mapper.toActor(actorEntity.get());
+            return Optional.ofNullable(ActorMapper.mapper.toActor(actorEntity.get()));
         } catch (SQLException e){
             throw new RuntimeException(e.getMessage());
         }

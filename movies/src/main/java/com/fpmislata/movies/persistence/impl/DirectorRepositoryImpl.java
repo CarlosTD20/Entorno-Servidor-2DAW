@@ -39,20 +39,20 @@ public class DirectorRepositoryImpl implements DirectorRepository {
     }
 
     @Override
-    public Director findDirectorById(int id) {
+    public Optional<Director> findDirectorById(int id) {
         try (Connection connection = DBUtil.getConnection(true)){
             Optional<DirectorEntity> directorEntity = directorsDAO.findDirectorById(connection,id);
-            return DirectorMapper.mapper.toDirector(directorEntity.get());
+            return Optional.ofNullable(DirectorMapper.mapper.toDirector(directorEntity.get()));
         } catch (SQLException e){
             throw new RuntimeException(e.getMessage());
         }
     }
 
     @Override
-    public Director findDirectorByMovieId(int id){
+    public Optional<Director> findDirectorByMovieId(int id){
         try (Connection connection = DBUtil.getConnection(true)){
             Optional<DirectorEntity> directorEntity = directorsDAO.findDirectorByMovieId(connection,id);
-            return DirectorMapper.mapper.toDirector(directorEntity.get());
+            return Optional.ofNullable(DirectorMapper.mapper.toDirector(directorEntity.get()));
         } catch (SQLException e){
             throw new RuntimeException(e.getMessage());
         }

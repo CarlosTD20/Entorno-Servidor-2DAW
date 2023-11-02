@@ -4,11 +4,12 @@ import com.fpmislata.movies.domain.entity.Director;
 
 
 import java.util.List;
+import java.util.Optional;
 
 
 public interface DirectorService {
     public List<Director> getAllDirector();
-    public  Director findDirectorById(int id);
+    public Director findDirectorById(int id);
     public int insertDirector(Director director);
     public void update( Director director);
     public void delete(int id);

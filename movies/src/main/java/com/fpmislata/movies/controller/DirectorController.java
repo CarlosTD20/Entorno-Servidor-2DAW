@@ -6,6 +6,7 @@ import com.fpmislata.movies.controller.model.director.DirectorListWEB;
 import com.fpmislata.movies.controller.model.director.DirectorUpdateWEB;
 import com.fpmislata.movies.domain.entity.Director;
 import com.fpmislata.movies.domain.service.DirectorService;
+import com.fpmislata.movies.http_response.Response;
 import com.fpmislata.movies.mapper.DirectorMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,18 +23,18 @@ public class DirectorController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("")
-    public List<DirectorListWEB> getAllDirectos(){
+    public Response getAllDirectos(){
         List<Director> directors = directorService.getAllDirector();
         List<DirectorListWEB> directorWEB = directors.stream()
                 .map(director -> DirectorMapper.mapper.toDirectorListWEB(director))
                 .toList();
-        return directorWEB;
+        return new Response(directorWEB);
     }
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{id}")
-    public DirectorDetailWEB getDirectorByID(@PathVariable int id){
-       return DirectorMapper.mapper.toDirectorDetailWEB(directorService.findDirectorById(id));
+    public Response getDirectorByID(@PathVariable int id){
+       return new Response(DirectorMapper.mapper.toDirectorDetailWEB(directorService.findDirectorById(id)));
     }
 
     @ResponseStatus(HttpStatus.CREATED)

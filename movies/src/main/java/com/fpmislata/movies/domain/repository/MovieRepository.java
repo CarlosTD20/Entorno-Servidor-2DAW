@@ -9,6 +9,6 @@ import java.util.Optional;
 
 public interface MovieRepository {
     public List<Movie> getAllMovie(Optional<Integer> page,Optional<Integer> pageSize);
-    public Movie getMovieById(int id);
+    public Optional<Movie> getMovieById(int id);
     int getTotalNumberOfRecords();
 }

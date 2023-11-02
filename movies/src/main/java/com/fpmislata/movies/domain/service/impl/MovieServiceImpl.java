@@ -7,6 +7,7 @@ import com.fpmislata.movies.domain.service.MovieService;
 import com.fpmislata.movies.domain.repository.ActorRepository;
 import com.fpmislata.movies.domain.repository.DirectorRepository;
 import com.fpmislata.movies.domain.repository.MovieRepository;
+import com.fpmislata.movies.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,8 +32,8 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public Movie findById(int id) {
-        Movie movie = movieRepository.getMovieById(id);
-        Director director  = directorRepository.findDirectorByMovieId(id);
+        Movie movie = movieRepository.getMovieById(id).orElseThrow(() -> new ResourceNotFoundException("Movie not found with id: " + id));
+        Director director  = directorRepository.findDirectorByMovieId(id).orElseThrow(()-> new ResourceNotFoundException("Director not found with id: " + id));;
         List<Actor> actors = actorRepository.findActorsByMovieID(id);
         movie.setDirector(director);
         movie.setActors(actors);

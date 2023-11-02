@@ -40,10 +40,10 @@ public class MovieRepositoryImpl implements MovieRepository {
     }
 
     @Override
-    public Movie getMovieById(int id) {
+    public Optional<Movie> getMovieById(int id) {
         try (Connection connection = DBUtil.getConnection(true)){
             Optional<MovieEntity> movieEntity = moviesDAO.getMovieById(connection, id);
-            return MovieMapper.mapper.toMovie(movieEntity.get());
+            return Optional.ofNullable(MovieMapper.mapper.toMovie(movieEntity.get()));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
