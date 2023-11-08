@@ -54,4 +54,30 @@ public class MoviesDAO {
          throw new RuntimeException("SQL: " + SQl);
      }
  }
+
+    public void AddActor(Connection connection, int movieId, int actorId){
+        final String SQL="INSERT INTO actors_movies (movie_id, actor_id ) values (?,?)";
+        DBUtil.insert(connection,SQL,List.of(movieId,actorId));
+    }
+
+    public int insertMovie(Connection connection, MovieEntity movieEntity) throws SQLException{
+        try {
+            final String SQL="INSERT INTO movies (title, year, runtime, director_id) values (?, ?, ?, ?)";
+            List<Object> params = new ArrayList<>();
+            params.add(movieEntity.getTitle());
+            params.add(movieEntity.getYear());
+            params.add(movieEntity.getRuntime());
+            params.add(movieEntity.getDirectorId());
+            int id = DBUtil.insert(connection,SQL,params);
+            movieEntity.getActorIds().stream()
+                    .forEach(actorID -> AddActor(connection,id,actorID));
+            connection.commit();
+            return id;
+        } catch (Exception e){
+            connection.rollback();
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void upadteActors (Connection connection, MovieEntity movieEntity){}
 }

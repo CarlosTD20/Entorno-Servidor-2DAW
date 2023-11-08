@@ -1,5 +1,6 @@
 package com.fpmislata.movies.persistence.impl;
 
+import com.fpmislata.movies.controller.model.movie.MovieCreateWEB;
 import com.fpmislata.movies.db.DBUtil;
 import com.fpmislata.movies.domain.entity.Movie;
 import com.fpmislata.movies.exception.DBConnectionException;
@@ -8,6 +9,7 @@ import com.fpmislata.movies.exception.SQLStatmentException;
 import com.fpmislata.movies.domain.repository.MovieRepository;
 import com.fpmislata.movies.mapper.MovieMapper;
 import com.fpmislata.movies.persistence.dao.MoviesDAO;
+import com.fpmislata.movies.persistence.model.ActorEntity;
 import com.fpmislata.movies.persistence.model.MovieEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -56,6 +58,16 @@ public class MovieRepositoryImpl implements MovieRepository {
             return moviesDAO.getTotalNumberOfRecords(connection);
         } catch (SQLException e){
             throw new RuntimeException(e);
+        }
+    }
+
+    public int insertMovie(Movie movie){
+        try (Connection connection = DBUtil.getConnection(false)){
+            MovieEntity movieEntity = MovieMapper.mapper.toMovieEntity(movie);
+            int id = moviesDAO.insertMovie(connection,movieEntity);
+            return id;
+        } catch (SQLException e){
+            throw new RuntimeException(e.getMessage());
         }
     }
 }

@@ -39,7 +39,7 @@ public class DirectorController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("")
-    public DirectorDetailWEB insertDirector(@RequestBody DirectorCreateWEB directorCreateWEB){
+    public Response insertDirector(@RequestBody DirectorCreateWEB directorCreateWEB){
         int id =directorService.insertDirector(DirectorMapper.mapper.toDirector(directorCreateWEB));
         DirectorDetailWEB directorDetailWEB = new DirectorDetailWEB(
                 id,
@@ -47,7 +47,7 @@ public class DirectorController {
                 directorCreateWEB.getBirthYear(),
                 directorCreateWEB.getDeathYear()
         );
-        return directorDetailWEB;
+        return new Response(directorDetailWEB);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

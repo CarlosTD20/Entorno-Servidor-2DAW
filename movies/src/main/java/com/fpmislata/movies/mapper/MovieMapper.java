@@ -1,22 +1,40 @@
 package com.fpmislata.movies.mapper;
 
+import com.fpmislata.movies.controller.model.movie.MovieCreateWEB;
 import com.fpmislata.movies.controller.model.movie.MovieDetailWEB;
 import com.fpmislata.movies.controller.model.movie.MovieListWEB;
+import com.fpmislata.movies.domain.entity.Actor;
 import com.fpmislata.movies.domain.entity.Movie;
 import com.fpmislata.movies.persistence.model.MovieEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 
 import javax.swing.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 @Mapper(componentModel = "spring")  //Permite que Spring sea capaz de administrar esta clase
 public interface MovieMapper {
 
     MovieMapper mapper = Mappers.getMapper(MovieMapper.class);
 
+    @Mapping(target = "directorId", expression = "java(movie.getDirector().getId())")
+    @Mapping(target = "actorIds", expression = "java(mapActorsToActorsId(movie.getActors()))")
+    MovieEntity toMovieEntity(Movie movie);
+
+    @Named("actorsToActorsId")
+    default List<Integer> mapActorsToActorsId(List<Actor> actors){
+        return actors.stream()
+                .map(actor -> actor.getId())
+                .toList();
+    }
+
+    @Mapping(target = "director", ignore = true)
+    @Mapping(target = "actors", ignore = true)
+    Movie toMovie(MovieCreateWEB movieCreateWEB);
 
     Movie toMovie(MovieEntity movieEntity);
 
