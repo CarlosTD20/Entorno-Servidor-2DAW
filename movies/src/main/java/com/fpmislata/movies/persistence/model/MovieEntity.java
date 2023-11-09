@@ -1,5 +1,6 @@
 package com.fpmislata.movies.persistence.model;
 
+import com.fpmislata.movies.domain.entity.Director;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -79,5 +79,19 @@ public class MoviesDAO {
         }
     }
 
-    public void upadteActors (Connection connection, MovieEntity movieEntity){}
+    public void upadteMovies (Connection connection, MovieEntity movieEntity){
+        final String SQL="UPDATE movies set title=?, year=?, runtime=?, director_id=? where id=?";
+        List<Object> params = new ArrayList<>();
+
+        params.add(movieEntity.getTitle());
+        params.add(movieEntity.getYear());
+        params.add(movieEntity.getRuntime());
+        params.add(movieEntity.getDirectorId());
+        params.add(movieEntity.getId());
+        DBUtil.update(connection,SQL,params);
+    }
+
+    public void updateActorsFromTheMovie(){}
+
+    public void delteActorsFromTheMovie(){}
 }

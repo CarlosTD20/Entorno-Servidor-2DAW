@@ -3,6 +3,7 @@ package com.fpmislata.movies.mapper;
 import com.fpmislata.movies.controller.model.movie.MovieCreateWEB;
 import com.fpmislata.movies.controller.model.movie.MovieDetailWEB;
 import com.fpmislata.movies.controller.model.movie.MovieListWEB;
+import com.fpmislata.movies.controller.model.movie.MovieUpdateWEB;
 import com.fpmislata.movies.domain.entity.Actor;
 import com.fpmislata.movies.domain.entity.Movie;
 import com.fpmislata.movies.persistence.model.MovieEntity;
@@ -21,12 +22,15 @@ public interface MovieMapper {
 
     MovieMapper mapper = Mappers.getMapper(MovieMapper.class);
 
+
+    Movie toMovie(MovieUpdateWEB movieUpdateWEB);
+
     @Mapping(target = "directorId", expression = "java(movie.getDirector().getId())")
-    @Mapping(target = "actorIds", expression = "java(mapActorsToActorsId(movie.getActors()))")
+    @Mapping(target = "actorIds", expression = "java(mapActorsToActorIds(movie.getActors()))")
     MovieEntity toMovieEntity(Movie movie);
 
     @Named("actorsToActorsId")
-    default List<Integer> mapActorsToActorsId(List<Actor> actors){
+    default List<Integer> mapActorsToActorIds(List<Actor> actors){
         return actors.stream()
                 .map(actor -> actor.getId())
                 .toList();

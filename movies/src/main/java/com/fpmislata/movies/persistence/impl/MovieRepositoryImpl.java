@@ -70,4 +70,13 @@ public class MovieRepositoryImpl implements MovieRepository {
             throw new RuntimeException(e.getMessage());
         }
     }
+
+    @Override
+    public void upadteMovies(Movie movie) {
+        try (Connection connection = DBUtil.getConnection(true)){
+            moviesDAO.upadteMovies(connection,MovieMapper.mapper.toMovieEntity(movie));
+        } catch (SQLException e){
+            throw new RuntimeException(e.getMessage());
+        }
+    }
 }

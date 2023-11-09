@@ -72,6 +72,7 @@ public class MovieController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("/{id}")
     public void updateMovie(@PathVariable("id") int movieID, @RequestBody MovieUpdateWEB movieUpdateWEB){
-
+        movieUpdateWEB.setId(movieID);
+        this.movieService.upadteMovies(MovieMapper.mapper.toMovie(movieUpdateWEB),movieUpdateWEB.getDirectorId());
     }
 }

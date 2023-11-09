@@ -12,4 +12,5 @@ public interface MovieService {
     public Movie findById(int id);
     int getTotalNumberOfRecords();
     public int insertMovie(Movie movie, int directorId, List<Integer> actorIds);
+    public void upadteMovies(Movie movie, int directorId);
 }

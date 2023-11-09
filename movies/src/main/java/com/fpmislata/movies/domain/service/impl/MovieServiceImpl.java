@@ -60,4 +60,14 @@ public class MovieServiceImpl implements MovieService {
         return movieRepository.insertMovie(movie);
     }
 
+    @Override
+    public void upadteMovies(Movie movie, int directorId) {
+        Director director = directorRepository.findDirectorById(directorId).orElseThrow(()-> new RuntimeException("Director not found with id:" +directorId));
+        movieRepository.getMovieById(movie.getId()).orElseThrow(()-> new RuntimeException("Movie not found with id:" + movie.getId()));
+        movie.setDirector(director);
+        movieRepository.upadteMovies(movie);
+        //need to add list of actorsID
+    }
+
+
 }

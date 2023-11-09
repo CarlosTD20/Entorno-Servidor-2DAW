@@ -12,4 +12,5 @@ public interface MovieRepository {
     public Optional<Movie> getMovieById(int id);
     int getTotalNumberOfRecords();
     public int insertMovie(Movie movie);
+    public void upadteMovies(Movie movie);
 }

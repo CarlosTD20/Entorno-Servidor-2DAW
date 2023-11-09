@@ -1,5 +1,6 @@
 package com.fpmislata.movies.controller.model.movie;
 
+import com.fpmislata.movies.domain.entity.Director;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +17,6 @@ public class MovieUpdateWEB {
     private String title;
     private int year;
     private int runtime;
-    private int directorId;
+    private Integer directorId;
     private List<Integer> actorsId;
 }
