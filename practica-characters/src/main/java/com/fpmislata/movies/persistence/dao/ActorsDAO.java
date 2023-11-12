@@ -58,6 +58,16 @@ public class ActorsDAO {
         }
     }
 
+    public Optional<ActorEntity> getByCharacterId(Connection connection, int characterId){
+        final String SQL="SELECT a.* from actors a INNER JOIN actors_movies am where a.id=am.actor_id and am.actor_id=?";
+        try {
+            ResultSet resultSet = DBUtil.select(connection,SQL,List.of(characterId));
+            return Optional.ofNullable(resultSet.next()? ActorMapper.mapper.toActorEnity(resultSet) : null);
+        } catch (SQLException e){
+            throw new RuntimeException();
+        }
+    }
+
     public int insertActor(Connection connection, ActorEntity actorEntity){
         final String SQL = "insert into actors (name, birthYear, deathYear) values (?,?,?)";
         List<Object> params = new ArrayList<>();
