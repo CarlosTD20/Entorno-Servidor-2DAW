@@ -25,6 +25,7 @@ public interface CharacterMapper {
 
     @Mapping(target = "actorId", expression="java(character.getActor().getId())")
     @Mapping(target = "actorName", expression="java(character.getActor().getName())")
+    @Mapping(target = "character", expression ="java(character.getName())")
     CharacterListWEB toCharacterListWEB(Character character);
 
 }

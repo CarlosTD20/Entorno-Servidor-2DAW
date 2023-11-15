@@ -24,7 +24,7 @@ public class MovieEntity {
     //private List<Integer> actorIds;
 
     private DirectorEntity directorEntity;
-    private List<ActorEntity> actorEntities;
+    private List<CharacterEntity> characterEntities;
 
     public MovieEntity(int id, String title, int year, int runtime) {
         this.id = id;
@@ -33,7 +33,7 @@ public class MovieEntity {
         this.runtime = runtime;
     }
 
-
+/*
     public DirectorEntity getDirectorsByMovieId(Connection connection, DirectorsDAO directorsDAO){
         if (this.directorEntity == null){
             this.directorEntity = directorsDAO.findDirectorByMovieId(connection,this.id).orElse(null);
@@ -47,4 +47,5 @@ public class MovieEntity {
         }
         return this.actorEntities;
     }
+ */
 }

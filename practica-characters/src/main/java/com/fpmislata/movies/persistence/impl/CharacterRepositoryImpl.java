@@ -27,10 +27,6 @@ public class CharacterRepositoryImpl implements CharacterRepository {
     public List<Character> findByMovieId(int movieId) {
         try (Connection connection = DBUtil.getConnection(true)){
             List<CharacterEntity> characterEntities = characterDAO.getByMovieId(connection,movieId);
-            for (CharacterEntity characterEntity : characterEntities) {
-                List<ActorEntity> actorEntity = actorsDAO.findActorsByMovieID(connection, movieId);
-                characterEntity.setActorEntity((ActorEntity) actorEntity);
-            }
             List<Character> characters = characterEntities.stream()
                     .map(characterEntity -> CharacterMapper.mapper.toCharacter(characterEntity))
                     .toList();
