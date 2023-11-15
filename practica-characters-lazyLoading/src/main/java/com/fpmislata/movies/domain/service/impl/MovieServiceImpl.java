@@ -51,7 +51,7 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public int insertMovie(Movie movie, int directorId, List<Integer> actorIds) {
+    public int insertMovie(Movie movie, int directorId) {
         Director director = directorRepository.findDirectorById(directorId)
                 .orElseThrow(()->new ResourceNotFoundException("Director not found with:"+ directorId));
         /*List<Actor> actors = actorIds.stream()

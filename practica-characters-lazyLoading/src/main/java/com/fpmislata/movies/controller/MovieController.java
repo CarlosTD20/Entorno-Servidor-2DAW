@@ -58,10 +58,11 @@ public class MovieController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping()
      public Response insertMovie(@RequestBody MovieCreateWEB movieCreateWEB){
+        System.out.println(movieCreateWEB.getDirectorId());
         int id = movieService.insertMovie(
                 MovieMapper.mapper.toMovie(movieCreateWEB),
-                movieCreateWEB.getDirectorId(),
-                movieCreateWEB.getActorsId()
+                movieCreateWEB.getDirectorId()
+                //movieCreateWEB.getChractersId()
         );
         MovieListWEB movieListWEB = new MovieListWEB();
         movieListWEB.setTitle(movieCreateWEB.getTitle());

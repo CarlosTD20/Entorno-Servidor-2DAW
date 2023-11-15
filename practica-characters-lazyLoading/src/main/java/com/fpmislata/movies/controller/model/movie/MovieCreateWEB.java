@@ -14,5 +14,6 @@ public class MovieCreateWEB {
     private int year;
     private int runtime;
     private int directorId;
-    private List<Integer> actorsId;
+    //private List<Integer> actorsId;
+    //private List<Integer> chractersId;
 }

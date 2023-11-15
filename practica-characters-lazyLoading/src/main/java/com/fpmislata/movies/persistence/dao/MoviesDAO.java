@@ -2,6 +2,7 @@ package com.fpmislata.movies.persistence.dao;
 
 import com.fpmislata.movies.db.DBUtil;
 import com.fpmislata.movies.mapper.MovieMapper;
+import com.fpmislata.movies.persistence.model.CharacterEntity;
 import com.fpmislata.movies.persistence.model.MovieEntity;
 import org.springframework.stereotype.Component;
 
@@ -55,13 +56,13 @@ public class MoviesDAO {
      }
  }
 
-    public void AddActor(Connection connection, int movieId, int actorId){
-        final String SQL="INSERT INTO actors_movies (movie_id, actor_id ) values (?,?)";
-        DBUtil.insert(connection,SQL,List.of(movieId,actorId));
+    public void AddActor(Connection connection, int movieId, CharacterEntity characterEntity){
+        final String SQL="INSERT INTO actors_movies (movie_id, actor_id ,characters) values (?,?,?)";
+        DBUtil.insert(connection,SQL,List.of(movieId,characterEntity.getActorEntity().getId(),characterEntity.getName()));
     }
 
     public int insertMovie(Connection connection, MovieEntity movieEntity) throws SQLException{
-       /* try {
+        try {
             final String SQL="INSERT INTO movies (title, year, runtime, director_id) values (?, ?, ?, ?)";
             List<Object> params = new ArrayList<>();
             params.add(movieEntity.getTitle());
@@ -69,15 +70,12 @@ public class MoviesDAO {
             params.add(movieEntity.getRuntime());
             params.add(movieEntity.getDirectorId());
             int id = DBUtil.insert(connection,SQL,params);
-            movieEntity.getCharactersId().stream()
-                    .forEach(characterID -> AddActor(connection,id,characterID));
             connection.commit();
             return id;
         } catch (Exception e){
             connection.rollback();
             throw new RuntimeException(e);
-        }*/
-        return 1;
+        }
     }
 
     public void upadteMovies (Connection connection, MovieEntity movieEntity){

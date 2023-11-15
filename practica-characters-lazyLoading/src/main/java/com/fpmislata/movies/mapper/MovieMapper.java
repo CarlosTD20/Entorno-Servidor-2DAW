@@ -28,20 +28,11 @@ public interface MovieMapper {
 
     Movie toMovie(MovieUpdateWEB movieUpdateWEB);
 
+    @Mapping(target = "directorId", expression = "java(movie.getDirector().getId())")
     MovieEntity toMovieEntity(Movie movie);
 
     @Mapping(target = "characters", expression = "java(mapCharactersToCharactersListWEB(movie.getCharacters()))")
     MovieDetailWEB toMovieDetailWEB(Movie movie);//Detalle de Películas
-
-    /*@Named("mapCharactersToCharactersListWEB")
-    default List<CharacterListWEB> mapCharactersToCharactersListWEB(List<Character> character){
-        return character.stream()
-                .map(character -> {
-                    CharacterListWEB characterListWEB = CharacterMapper.mapper.toCharacterListWEB(character);
-                    characterListWEB.setCharacter(character.getCharacter());
-                    return characterListWEB;
-                });
-    }*/
    @Named("mapCharactersToCharactersListWEB")
     default List<CharacterListWEB> mapCharactersToCharactersListWEB(List<Character> character){
         if (character == null){
@@ -75,7 +66,7 @@ public interface MovieMapper {
     }
 
     @Mapping(target = "director", ignore = true)
-    @Mapping(target = "characters", ignore = true)
+    //@Mapping(target = "characters", ignore = true)
     Movie toMovie(MovieCreateWEB movieCreateWEB);
 
     @Mapping(target = "id", expression = "java(resultSet.getInt(\"id\"))")
