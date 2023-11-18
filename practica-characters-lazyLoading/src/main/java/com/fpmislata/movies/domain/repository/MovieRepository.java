@@ -1,5 +1,6 @@
 package com.fpmislata.movies.domain.repository;
 
+import com.fpmislata.movies.domain.entity.Character;
 import com.fpmislata.movies.domain.entity.Movie;
 
 
@@ -12,4 +13,5 @@ public interface MovieRepository {
     public Optional<Movie> getMovieById(int id);
     int getTotalNumberOfRecords();
     public int insertMovie(Movie movie);
+    public void insertCharacterIntoMovie(int moviedId, List<Character> character);
 }

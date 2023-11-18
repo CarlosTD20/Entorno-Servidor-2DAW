@@ -1,5 +1,7 @@
 package com.fpmislata.movies.controller;
 
+import com.fpmislata.movies.controller.model.character.CharacterCreateWEB;
+import com.fpmislata.movies.controller.model.character.CharacterListWEB;
 import com.fpmislata.movies.controller.model.movie.MovieCreateWEB;
 import com.fpmislata.movies.controller.model.movie.MovieDetailWEB;
 import com.fpmislata.movies.controller.model.movie.MovieListWEB;
@@ -7,6 +9,7 @@ import com.fpmislata.movies.controller.model.movie.MovieUpdateWEB;
 import com.fpmislata.movies.domain.entity.Movie;
 import com.fpmislata.movies.domain.service.MovieService;
 import com.fpmislata.movies.http_response.Response;
+import com.fpmislata.movies.mapper.CharacterMapper;
 import com.fpmislata.movies.mapper.MovieMapper;
 import jakarta.servlet.annotation.HttpConstraint;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,7 +61,7 @@ public class MovieController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping()
      public Response insertMovie(@RequestBody MovieCreateWEB movieCreateWEB){
-        System.out.println(movieCreateWEB.getDirectorId());
+        //System.out.println(movieCreateWEB.getDirectorId());
         int id = movieService.insertMovie(
                 MovieMapper.mapper.toMovie(movieCreateWEB),
                 movieCreateWEB.getDirectorId()
@@ -68,6 +71,15 @@ public class MovieController {
         movieListWEB.setTitle(movieCreateWEB.getTitle());
         movieListWEB.setId(id);
         return new Response(movieListWEB);
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/{id}/characters")
+    public void insertCharacter(@PathVariable("id") int moviedId, @RequestBody List<CharacterCreateWEB> characterCreateWEB){
+        movieService.insertCharacterIntoMovie(moviedId, characterCreateWEB.stream()
+                .map(characterCreateWEB1 -> CharacterMapper.mapper.toCharacter(characterCreateWEB1))
+                .toList()
+        );
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

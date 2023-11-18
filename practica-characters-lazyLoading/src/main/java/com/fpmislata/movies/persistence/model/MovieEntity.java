@@ -20,7 +20,7 @@ public class MovieEntity {
     private String title;
     private int year;
     private int runtime;
-    private int directorId;
+    //private int directorId;
     //private List<Integer> charactersId;
     //private List<Integer> actorIds;
 

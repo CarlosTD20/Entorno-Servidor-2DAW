@@ -1,5 +1,6 @@
 package com.fpmislata.movies.domain.service;
 
+import com.fpmislata.movies.domain.entity.Character;
 import com.fpmislata.movies.domain.entity.Movie;
 
 import java.util.List;
@@ -12,4 +13,5 @@ public interface MovieService {
     public Movie findById(int id);
     int getTotalNumberOfRecords();
     public int insertMovie(Movie movie, int directorId);
+    public void insertCharacterIntoMovie(int movieId, List<Character> characters);
 }

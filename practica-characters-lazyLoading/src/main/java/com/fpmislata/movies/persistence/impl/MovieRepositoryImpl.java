@@ -2,11 +2,13 @@ package com.fpmislata.movies.persistence.impl;
 
 import com.fpmislata.movies.controller.model.movie.MovieCreateWEB;
 import com.fpmislata.movies.db.DBUtil;
+import com.fpmislata.movies.domain.entity.Character;
 import com.fpmislata.movies.domain.entity.Movie;
 import com.fpmislata.movies.exception.DBConnectionException;
 import com.fpmislata.movies.exception.ResourceNotFoundException;
 import com.fpmislata.movies.exception.SQLStatmentException;
 import com.fpmislata.movies.domain.repository.MovieRepository;
+import com.fpmislata.movies.mapper.CharacterMapper;
 import com.fpmislata.movies.mapper.MovieMapper;
 import com.fpmislata.movies.persistence.dao.ActorsDAO;
 import com.fpmislata.movies.persistence.dao.CharacterDAO;
@@ -31,6 +33,7 @@ public class MovieRepositoryImpl implements MovieRepository {
 
     @Autowired
     MoviesDAO moviesDAO;
+
     @Autowired
     DirectorsDAO directorsDAO;
 
@@ -79,11 +82,22 @@ public class MovieRepositoryImpl implements MovieRepository {
     }
 
     public int insertMovie(Movie movie){
-        try (Connection connection = DBUtil.getConnection(false)){
+        try (Connection connection = DBUtil.getConnection(true)){
             MovieEntity movieEntity = MovieMapper.mapper.toMovieEntity(movie);
             int id = moviesDAO.insertMovie(connection,movieEntity);
             return id;
         } catch (SQLException e){
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    public void insertCharacterIntoMovie(int moviedId, List<Character> character){
+        try (Connection connection = DBUtil.getConnection(true)){
+            List<CharacterEntity> characterEntities = character.stream()
+                    .map(CharacterMapper.mapper::toCharacterEntity)
+                    .toList();
+             characterEntities.forEach(characterEntity -> moviesDAO.AddCharacterIntoMovie(connection, moviedId, characterEntity));
+        }catch (SQLException e){
             throw new RuntimeException(e.getMessage());
         }
     }

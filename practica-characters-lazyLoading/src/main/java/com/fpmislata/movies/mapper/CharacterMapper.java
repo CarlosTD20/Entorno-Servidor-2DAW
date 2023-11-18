@@ -6,6 +6,7 @@ import com.fpmislata.movies.domain.entity.Actor;
 import com.fpmislata.movies.domain.entity.Character;
 import com.fpmislata.movies.persistence.model.ActorEntity;
 import com.fpmislata.movies.persistence.model.CharacterEntity;
+import lombok.Builder;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
@@ -13,11 +14,24 @@ import org.mapstruct.factory.Mappers;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 @Mapper(componentModel = "spring")  //Permite que Spring sea capaz de administrar esta clase
 public interface CharacterMapper {
 
     CharacterMapper mapper = Mappers.getMapper(CharacterMapper.class);
+
+    @Mapping(target ="actor", expression = "java(mapActorIdToActor(characterCreateWEB.getActorId()))")
+    Character toCharacter(CharacterCreateWEB characterCreateWEB);
+    default Actor mapActorIdToActor(Integer actorId) {
+        Actor actor = new Actor();
+        actor.setId(actorId);
+        return actor;
+    }
+
+
+    @Mapping(target = "actorEntity", expression = "java(ActorMapper.mapper.toActorEntity(character.getActor()))")
+    CharacterEntity toCharacterEntity(Character character);
 
     @Mapping(target = "actor", expression = "java(mapActorEntityToActor(characterEntity.getActorEntity()))")
     Character toCharacter(CharacterEntity characterEntity);
