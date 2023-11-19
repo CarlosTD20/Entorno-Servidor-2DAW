@@ -88,5 +88,21 @@ public class MoviesDAO {
 
     public void updateActorsFromTheMovie(){}
 
-    public void delteActorsFromTheMovie(){}
+    public void deleteCharacters(Connection connection,int movieId){
+        try {
+            final String SQL="DELETE FROM actors_movies where movie_id=?";
+            DBUtil.delete(connection,SQL,List.of(movieId));
+        } catch (Exception e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void deleteMovie(Connection connection, int movieId){
+        try {
+            final String SQL="DELETE FROM movies where id=?";
+            DBUtil.delete(connection,SQL,List.of(movieId));
+        } catch (Exception e){
+            throw new RuntimeException(e);
+        }
+    }
 }

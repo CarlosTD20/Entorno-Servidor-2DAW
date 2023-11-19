@@ -14,4 +14,5 @@ public interface MovieRepository {
     int getTotalNumberOfRecords();
     public int insertMovie(Movie movie);
     public void insertCharacterIntoMovie(int moviedId, List<Character> character);
+    public void deleteMovie(int movieId);
 }

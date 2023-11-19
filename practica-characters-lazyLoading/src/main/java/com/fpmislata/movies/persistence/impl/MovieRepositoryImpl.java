@@ -101,4 +101,14 @@ public class MovieRepositoryImpl implements MovieRepository {
             throw new RuntimeException(e.getMessage());
         }
     }
+
+    @Override
+    public void deleteMovie(int movieId) {
+        try (Connection connection = DBUtil.getConnection(true)) {
+            moviesDAO.deleteCharacters(connection,movieId);
+            moviesDAO.deleteMovie(connection,movieId);
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
 }

@@ -72,4 +72,9 @@ public class MovieServiceImpl implements MovieService {
         movieRepository.insertCharacterIntoMovie(movieId,characters);
     }
 
+    @Override
+    public void deleteMovie(int moviedId) {
+        movieRepository.deleteMovie(moviedId);
+    }
+
 }

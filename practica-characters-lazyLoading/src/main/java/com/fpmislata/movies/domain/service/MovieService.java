@@ -14,4 +14,5 @@ public interface MovieService {
     int getTotalNumberOfRecords();
     public int insertMovie(Movie movie, int directorId);
     public void insertCharacterIntoMovie(int movieId, List<Character> characters);
+    public void deleteMovie(int moviedId);
 }

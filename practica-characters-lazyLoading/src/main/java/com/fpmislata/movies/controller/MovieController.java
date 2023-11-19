@@ -87,4 +87,10 @@ public class MovieController {
     public void updateMovie(@PathVariable("id") int movieID, @RequestBody MovieUpdateWEB movieUpdateWEB){
 
     }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{id}")
+    public void deleteMovie(@PathVariable("id") int movieId){
+        movieService.deleteMovie( movieId);
+    }
 }
