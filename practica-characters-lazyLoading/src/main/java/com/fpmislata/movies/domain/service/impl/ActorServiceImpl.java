@@ -32,11 +32,11 @@ public class ActorServiceImpl implements ActorService {
 
     @Override
     public void update(Actor actor) {
-        actorRepository.findActorById(actor.getId()).orElseThrow(()-> new ResourceNotFoundException("Director not found with id: " + actor.getId()));
+        actorRepository.update(actor);
     }
 
     @Override
     public void delete(int id) {
-        actorRepository.findActorById(id).orElseThrow(()-> new ResourceNotFoundException("Director not found with id: " + id));;
+        actorRepository.delete(id);
     }
 }
