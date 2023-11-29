@@ -58,7 +58,7 @@ public class MoviesDAO {
 
     public void AddCharacterIntoMovie(Connection connection, int movieId, CharacterEntity characterEntity){
      try {
-         final String SQL="INSERT INTO actors_movies (movie_id, actor_id ,characters) values (?,?,?)";
+         final String SQL="INSERT INTO actors_movies (movie_id, actorpu_id ,characters) values (?,?,?)";
 
          DBUtil.insert(connection,SQL,List.of(movieId,characterEntity.getActorEntity().getId(),characterEntity.getName()));
      }catch (Exception e){
