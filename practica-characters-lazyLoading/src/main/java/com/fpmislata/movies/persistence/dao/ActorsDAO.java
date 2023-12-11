@@ -15,13 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-//@Component
-@Repository
-public interface ActorsDAO extends JpaRepository<MovieEntity,Integer> {
-    List<MovieEntity> findByTitle(String title);
+@Component
+
+public class ActorsDAO {
 
 
-/*
+
     public List<ActorEntity> getAllActors(Connection connection){
         final String SQL= "select * from actors";
         List<ActorEntity> actorEntities = new ArrayList<>();
@@ -102,5 +101,4 @@ public interface ActorsDAO extends JpaRepository<MovieEntity,Integer> {
         DBUtil.delete(connection,SQL,List.of(id));
         DBUtil.closeConnection(connection);
     }
- */
 }
