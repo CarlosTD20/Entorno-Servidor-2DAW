@@ -24,7 +24,7 @@ public interface AuthorMapper {
     @Mapping(target = "id", expression = "java(resultSet.getInt(\"id\"))")
     @Mapping(target = "name", expression = "java(resultSet.getString(\"name\"))")
     @Mapping(target = "nationality", expression = "java(resultSet.getString(\"nationality\"))")
-    @Mapping(target = "birth_year", expression = "java(resultSet.getInt(\"year\"))")
-    @Mapping(target = "death_year", expression = "java(resultSet.getInt(\"runtime\"))")
+    @Mapping(target = "birth_year", expression = "java(resultSet.getInt(\"birth_year\"))")
+    @Mapping(target = "death_year", expression = "java(resultSet.getInt(\"death_year\"))")
     AuthorEntity toAuthorEntity(ResultSet resultSet) throws SQLException;
 }

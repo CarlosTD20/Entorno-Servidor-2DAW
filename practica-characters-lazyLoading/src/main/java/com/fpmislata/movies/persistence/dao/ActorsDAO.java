@@ -3,7 +3,10 @@ package com.fpmislata.movies.persistence.dao;
 import com.fpmislata.movies.db.DBUtil;
 import com.fpmislata.movies.mapper.ActorMapper;
 import com.fpmislata.movies.persistence.model.ActorEntity;
+import com.fpmislata.movies.persistence.model.MovieEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -12,9 +15,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Component
-public class ActorsDAO {
+//@Component
+@Repository
+public interface ActorsDAO extends JpaRepository<MovieEntity,Integer> {
+    List<MovieEntity> findByTitle(String title);
 
+
+/*
     public List<ActorEntity> getAllActors(Connection connection){
         final String SQL= "select * from actors";
         List<ActorEntity> actorEntities = new ArrayList<>();
@@ -95,4 +102,5 @@ public class ActorsDAO {
         DBUtil.delete(connection,SQL,List.of(id));
         DBUtil.closeConnection(connection);
     }
+ */
 }

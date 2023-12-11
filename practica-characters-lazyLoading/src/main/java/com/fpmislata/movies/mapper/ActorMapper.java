@@ -33,5 +33,5 @@ public interface ActorMapper {
     ActorListWEB toActorListWEB(Actor actor);
     ActorDetailWEB toActorDetailWEB(Actor actor);
 
-    ActorEntity toActorEntity(ResultSet resultSet);
+    //ActorEntity toActorEntity(ResultSet resultSet);
 }
