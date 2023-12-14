@@ -4,7 +4,10 @@ import com.fpmislata.movies.db.DBUtil;
 import com.fpmislata.movies.mapper.MovieMapper;
 import com.fpmislata.movies.persistence.model.CharacterEntity;
 import com.fpmislata.movies.persistence.model.MovieEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -13,8 +16,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Component
-public class MoviesDAO {
+//@Component
+@Repository
+public interface MoviesDAO extends JpaRepository<MovieEntity, Integer> {
+
+    List<MovieEntity> findAll();
+    List<MovieEntity> findByTitle(String title);
+
+/*
  public List<MovieEntity> getAllMovies(Connection connection, Optional<Integer> page, Optional<Integer> pageSize){
      String SQL= "select * from movies";
      if(page.isPresent()) {    //Comprueba si se nos da una pagina y si existe y luego lo agrega al final de la consulta select el limit con la pagina
@@ -105,4 +114,5 @@ public class MoviesDAO {
             throw new RuntimeException(e);
         }
     }
+ */
 }

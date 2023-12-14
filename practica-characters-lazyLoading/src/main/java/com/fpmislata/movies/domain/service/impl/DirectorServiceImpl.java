@@ -15,7 +15,7 @@ public class DirectorServiceImpl implements DirectorService {
 
     @Autowired
     private DirectorRepository directorRepository;
-
+/*
     @Override
     public List<Director> getAllDirector() {
         return this.directorRepository.getAllDirector();
@@ -43,4 +43,5 @@ public class DirectorServiceImpl implements DirectorService {
         directorRepository.findDirectorById(id).orElseThrow(()-> new ResourceNotFoundException("Director not found with id: " + id));
         directorRepository.delete(id);
     }
+ */
 }

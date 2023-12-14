@@ -15,11 +15,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Component
+//@Component
+@Repository
+public interface ActorsDAO extends JpaRepository<ActorEntity, Integer> {
 
-public class ActorsDAO {
-
-
+/*
 
     public List<ActorEntity> getAllActors(Connection connection){
         final String SQL= "select * from actors";
@@ -101,4 +101,5 @@ public class ActorsDAO {
         DBUtil.delete(connection,SQL,List.of(id));
         DBUtil.closeConnection(connection);
     }
+ */
 }

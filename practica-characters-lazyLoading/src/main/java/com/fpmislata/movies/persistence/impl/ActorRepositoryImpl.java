@@ -25,6 +25,7 @@ public class ActorRepositoryImpl implements ActorRepository {
     @Autowired
     ActorsDAO actorsDAO;
 
+    /*
     @Override
     public List<Actor> getAllActors() {
         try (Connection connection = DBUtil.getConnection(true)){
@@ -86,4 +87,5 @@ public class ActorRepositoryImpl implements ActorRepository {
             throw new RuntimeException(e.getMessage());
         }
     }
+     */
 }

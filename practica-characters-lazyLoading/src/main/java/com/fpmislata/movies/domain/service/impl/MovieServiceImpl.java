@@ -27,6 +27,18 @@ public class MovieServiceImpl implements MovieService {
     @Autowired
     private DirectorRepository directorRepository;
 
+
+    @Override
+    public List<Movie> getAll(Integer page, Integer pageSize) {
+        return movieRepository.getAll(page,pageSize);
+    }
+
+    @Override
+    public long getTotalNumberOfRecords() {
+        return movieRepository.getTotalOfRecords();
+    }
+
+/*
     @Override
     public List<Movie> getAllMovies(Optional<Integer> page, Optional<Integer> pageSize) {
         return this.movieRepository.getAllMovie(page,pageSize);
@@ -53,11 +65,10 @@ public class MovieServiceImpl implements MovieService {
     public int insertMovie(Movie movie, int directorId) {
         Director director = directorRepository.findDirectorById(directorId)
                 .orElseThrow(()->new ResourceNotFoundException("Director not found with:"+ directorId));
-        /*List<Actor> actors = actorIds.stream()
-                .map(actorId-> actorRepository.findActorById(actorId)
-                        .orElseThrow(()->new ResourceNotFoundException("Director not found with:"+ actorIds)))
-                .toList();
-*/
+        //List<Actor> actors = actorIds.stream()
+          //      .map(actorId-> actorRepository.findActorById(actorId)
+            //            .orElseThrow(()->new ResourceNotFoundException("Director not found with:"+ actorIds)))
+              //  .toList();
         movie.setDirector(director);
         //movie.setActors(actors);
         return movieRepository.insertMovie(movie);
@@ -66,9 +77,9 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public void insertCharacterIntoMovie(int movieId, List<Character> characters){
         //DEBERÍAS CREAR ACTORES Y MOVIES
-        /*for (Character character: characters) {
-            buscar actor por character.getActor.getId()
-        }*/
+        //for (Character character: characters) {
+          //  buscar actor por character.getActor.getId()
+        //}
         movieRepository.insertCharacterIntoMovie(movieId,characters);
     }
 
@@ -76,5 +87,5 @@ public class MovieServiceImpl implements MovieService {
     public void deleteMovie(int moviedId) {
         movieRepository.deleteMovie(moviedId);
     }
-
+ */
 }

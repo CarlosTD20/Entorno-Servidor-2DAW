@@ -20,7 +20,7 @@ public class DirectorController {
 
     @Autowired
     private DirectorService directorService;
-
+/*
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("")
     public Response getAllDirectos(){
@@ -62,4 +62,5 @@ public class DirectorController {
     public void delete(@PathVariable("id") int id){
         this.directorService.delete(id);
     }
+ */
 }

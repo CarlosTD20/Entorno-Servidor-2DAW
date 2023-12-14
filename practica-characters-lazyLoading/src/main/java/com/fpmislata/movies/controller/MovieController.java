@@ -25,33 +25,37 @@ import java.util.Optional;
 @RestController
 public class MovieController {
 
-        @Value("${LIMIT}")
-        private Integer LIMIT;
+    @Value("${LIMIT}")
+    private Integer LIMIT;
 
     @Autowired
     private MovieService movieService;
 
+
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("")
-    public Response getAll(@RequestParam Optional<Integer> page,Optional<Integer> pageSize){
-
+    //public Response getAll(@RequestParam Optional<Integer> page,Optional<Integer> pageSize){
+    public Response getAll(@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer pageSize) {
+        /*
         if (pageSize.isEmpty()){
             pageSize = Optional.of(LIMIT);
         }
-        int totalRecords = movieService.getTotalNumberOfRecords();
+         */
+        pageSize = (pageSize != null)? pageSize : LIMIT;
+        long totalRecords = movieService.getTotalNumberOfRecords();
 
-        List<Movie> movies =movieService.getAllMovies(page,pageSize);
+        List<Movie> movies =movieService.getAll(page,pageSize);
         List<MovieListWEB> movieWEB = movies.stream()//stream() separa en onjestos, creando un flujo de elementos de tipo movies.
                 .map(movie -> MovieMapper.mapper.toMovieListWEB(movie))
                 .toList();
 
-        Response response = new Response(movieWEB,totalRecords,page,pageSize);
+        Response response = new Response(movieWEB, Math.toIntExact(totalRecords),page,pageSize);
 
         return response;
-        /*int limit = (pageSize.isPresent()? pageSize.get() : LIMIT);*/
+        //int limit = (pageSize.isPresent()? pageSize.get() : LIMIT);
     }
 
-
+/*
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{id}")
     public Response getMovieById(@PathVariable ("id") int id){
@@ -93,4 +97,6 @@ public class MovieController {
     public void deleteMovie(@PathVariable("id") int movieId){
         movieService.deleteMovie( movieId);
     }
+    */
+
 }

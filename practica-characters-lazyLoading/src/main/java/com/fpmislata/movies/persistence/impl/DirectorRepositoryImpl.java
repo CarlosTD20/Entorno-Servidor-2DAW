@@ -24,7 +24,7 @@ public class DirectorRepositoryImpl implements DirectorRepository {
 
     @Autowired
     DirectorsDAO directorsDAO;
-
+/*
     @Override
     public List<Director> getAllDirector() {
         try (Connection connection=DBUtil.getConnection(true)){
@@ -84,4 +84,5 @@ public class DirectorRepositoryImpl implements DirectorRepository {
             throw new RuntimeException(e.getMessage());
         }
     }
+ */
 }

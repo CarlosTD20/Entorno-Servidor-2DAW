@@ -21,7 +21,7 @@ public class ActorController {
 
     @Autowired
     private ActorService actorService;
-
+/*
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("")
     public Response getAllActors(){
@@ -63,4 +63,5 @@ public class ActorController {
     public void delete(@PathVariable("id") int id){
         this.actorService.delete(id);
     }
+ */
 }

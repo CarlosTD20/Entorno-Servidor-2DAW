@@ -8,7 +8,7 @@ import java.util.List;
 
 public class DBUtil {
 
-
+/*
     private static final String URL_CONNECTION = "jdbc:mariadb://localhost:3306/movies";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "root";
@@ -101,7 +101,7 @@ public class DBUtil {
             throw new SQLStatmentException("SQL: " + sql);
         }
     }
-
+ */
     /*
     final static String DRIVER = "jdbc:mariadb";
     final static String URL = "localhost:3306";

@@ -52,11 +52,11 @@ public class Response {
         this.data = data;
     }
 
-    public Response(Object data, Integer totalRecords, Optional<Integer> page,Optional<Integer> pageSize) {
+    public Response(Object data, Integer totalRecords, Integer page,Integer pageSize) {
         this.data = data;
         this.totalRecords = totalRecords;
-        if (page.isPresent()){
-            buildPaginationMetaData(totalRecords,pageSize.get(),page.get());
+        if (page != null){
+            buildPaginationMetaData(totalRecords,pageSize,page);
         }
     }
 

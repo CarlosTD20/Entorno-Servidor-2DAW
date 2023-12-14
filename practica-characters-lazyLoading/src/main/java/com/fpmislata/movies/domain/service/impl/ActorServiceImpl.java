@@ -14,7 +14,7 @@ public class ActorServiceImpl implements ActorService {
 
     @Autowired
     private ActorRepository actorRepository;
-
+/*
     @Override
     public List<Actor> getAllActors() {
         return this.actorRepository.getAllActors();
@@ -39,4 +39,5 @@ public class ActorServiceImpl implements ActorService {
     public void delete(int id) {
         actorRepository.delete(id);
     }
+ */
 }

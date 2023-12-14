@@ -3,6 +3,7 @@ package com.fpmislata.movies.persistence.dao;
 import com.fpmislata.movies.db.DBUtil;
 import com.fpmislata.movies.mapper.DirectorMapper;
 import com.fpmislata.movies.persistence.model.DirectorEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 
 
@@ -14,8 +15,8 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-public class DirectorsDAO {
-
+public interface DirectorsDAO extends JpaRepository<DirectorEntity, Integer> {
+/*
     public List<DirectorEntity> getAllDirectors(Connection connection){
         final String SQL= "select * from directors";
         List<DirectorEntity> directorEntities = new ArrayList<>();
@@ -82,4 +83,5 @@ public class DirectorsDAO {
         DBUtil.delete(connection,SQL,List.of(id));
         DBUtil.closeConnection(connection);
     }
+ */
 }

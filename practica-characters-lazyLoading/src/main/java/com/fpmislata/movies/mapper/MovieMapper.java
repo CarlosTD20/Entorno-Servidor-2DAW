@@ -25,7 +25,17 @@ public interface MovieMapper {
 
     MovieMapper mapper = Mappers.getMapper(MovieMapper.class);
 
+    @Mapping(target = "director",ignore = true)
+    @Mapping(target = "characters", ignore = true)
+    Movie toMovie(MovieEntity movieEntity);
 
+    @Mapping(target = "director", ignore = true)
+    @Mapping(target = "characters", ignore = true)
+    List<Movie> toMovieList(List<MovieEntity> movieEntities);
+
+    MovieListWEB toMovieListWEB(Movie movie);
+
+/*
     Movie toMovie(MovieUpdateWEB movieUpdateWEB);
 
     //@Mapping(target = "directorId", expression = "java(movie.getDirector().getId())")
@@ -88,4 +98,6 @@ public interface MovieMapper {
     MovieEntity toMovieEntity(ResultSet resultSet) throws SQLException;
 
     MovieListWEB toMovieListWEB(Movie movie); //Lista de Películas
+
+ */
 }

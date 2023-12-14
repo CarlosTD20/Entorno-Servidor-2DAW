@@ -19,6 +19,9 @@ import com.fpmislata.movies.persistence.model.CharacterEntity;
 import com.fpmislata.movies.persistence.model.MovieEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
@@ -44,6 +47,23 @@ public class MovieRepositoryImpl implements MovieRepository {
     ActorsDAO actorsDAO;
 
 
+    @Override
+    public List<Movie> getAll(Integer page, Integer pageSize) {
+        List<MovieEntity> movieEntities;
+        if (page != null && page > 0){
+            Pageable pageable = PageRequest.of(page -1, pageSize);
+            movieEntities = moviesDAO.findAll(pageable).stream().toList();
+        } else {
+            movieEntities = moviesDAO.findAll();
+        }
+        return MovieMapper.mapper.toMovieList(movieEntities);
+    }
+
+    public long getTotalOfRecords(){
+        return moviesDAO.count();
+    }
+
+/*
     @Override
     public List<Movie> getAllMovie(Optional<Integer> page, Optional<Integer> pageSize){
       try (Connection connection = DBUtil.getConnection(true)){
@@ -111,4 +131,5 @@ public class MovieRepositoryImpl implements MovieRepository {
             throw new RuntimeException(e.getMessage());
         }
     }
+ */
 }
