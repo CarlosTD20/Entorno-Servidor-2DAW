@@ -29,6 +29,11 @@ public class MovieServiceImpl implements MovieService {
 
 
     @Override
+    public Movie findById(int movie_id) {
+        return movieRepository.findById(movie_id).get();
+    }
+
+    @Override
     public List<Movie> getAll(Integer page, Integer pageSize) {
         return movieRepository.getAll(page,pageSize);
     }

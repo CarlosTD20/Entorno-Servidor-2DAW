@@ -10,6 +10,7 @@ import java.util.Optional;
 
 public interface MovieService {
 
+    public Movie findById(int movie_id);
     public List<Movie> getAll(Integer page, Integer pageSize);
     public long getTotalNumberOfRecords();
 

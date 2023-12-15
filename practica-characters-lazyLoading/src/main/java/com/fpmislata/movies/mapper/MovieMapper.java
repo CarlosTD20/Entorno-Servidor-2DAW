@@ -35,6 +35,10 @@ public interface MovieMapper {
 
     MovieListWEB toMovieListWEB(Movie movie);
 
+    @Mapping(target = "director", ignore = true)
+    @Mapping(target = "characters", ignore = true)
+    MovieDetailWEB toMovieDetailWEB(Movie movie);
+
 /*
     Movie toMovie(MovieUpdateWEB movieUpdateWEB);
 

@@ -48,6 +48,11 @@ public class MovieRepositoryImpl implements MovieRepository {
 
 
     @Override
+    public Optional<Movie> findById(int movie_id) {
+        return Optional.ofNullable(MovieMapper.mapper.toMovie(moviesDAO.findById(movie_id).get()));
+    }
+
+    @Override
     public List<Movie> getAll(Integer page, Integer pageSize) {
         List<MovieEntity> movieEntities;
         if (page != null && page > 0){

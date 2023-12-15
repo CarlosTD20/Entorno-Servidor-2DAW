@@ -21,6 +21,7 @@ import java.util.Optional;
 public interface MoviesDAO extends JpaRepository<MovieEntity, Integer> {
 
     List<MovieEntity> findAll();
+    Optional<MovieEntity> findById(int movie_id);
     List<MovieEntity> findByTitle(String title);
 
 /*

@@ -55,13 +55,13 @@ public class MovieController {
         //int limit = (pageSize.isPresent()? pageSize.get() : LIMIT);
     }
 
-/*
+
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{id}")
     public Response getMovieById(@PathVariable ("id") int id){
         return new Response( MovieMapper.mapper.toMovieDetailWEB(movieService.findById(id)));
     }
-
+/*
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping()
      public Response insertMovie(@RequestBody MovieCreateWEB movieCreateWEB){
