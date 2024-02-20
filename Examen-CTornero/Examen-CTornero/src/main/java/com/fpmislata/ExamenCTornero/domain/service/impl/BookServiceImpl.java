@@ -60,6 +60,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book update(Book book, int publisherId) {
+        bookRepository.findById(book.getId()).orElseThrow( ()-> new RuntimeException("No se encontro ningún lirbo con el isbn: " + book.getId()));
         return save(book, publisherId);
     }
 
