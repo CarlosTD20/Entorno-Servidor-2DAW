@@ -73,7 +73,7 @@ public class BookServiceImpl implements BookService {
     public Book insertAuthor(String isbn, int authorID) {
         Book book = bookRepository.findByIsbn(isbn).orElseThrow(() -> new RuntimeException("No se ha encontrado ningún libro con el isbn: " + isbn));
         Author author = authorRepository.findById(authorID).orElseThrow(() -> new RuntimeException("No se ha encontrado ningún autor con el id: " + authorID));
-        book.setAuthors(Collections.singletonList(author));
+        book.addAuthors(author);
         return save(book,book.getPublisher().getId());
     }
 

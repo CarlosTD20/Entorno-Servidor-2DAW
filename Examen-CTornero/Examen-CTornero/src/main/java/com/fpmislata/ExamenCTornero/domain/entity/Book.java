@@ -108,6 +108,10 @@ public class Book {
         this.authors = authors;
     }
 
+    public void addAuthors(Author author){
+        this.authors.add(author);
+    }
+
     @Override
     public String toString() {
         return "Book{" +
